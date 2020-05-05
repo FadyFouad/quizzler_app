@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'Question.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -26,6 +28,9 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   List<Icon> score = [];
+  List<Question> questions=[
+    Question(question: 'You can lead a cow down stairs but not up stairs.',answer: false)
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -100,6 +105,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+
 
 /*
 question1: 'You can lead a cow down stairs but not up stairs.', false,
