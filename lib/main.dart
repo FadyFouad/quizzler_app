@@ -11,8 +11,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme:
-          ThemeData(primarySwatch: Colors.blue, backgroundColor: Colors.indigo),
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        backgroundColor: Colors.indigo,
+        scaffoldBackgroundColor: Colors.indigo,
+      ),
       home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
@@ -28,9 +31,17 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   List<Icon> score = [];
-  List<Question> questions=[
-    Question(question: 'You can lead a cow down stairs but not up stairs.',answer: false)
+  List<Question> questions = [
+    Question(
+        question: 'You can lead a cow down stairs but not up stairs.',
+        answer: false),
+    Question(
+      question: 'Approximately one quarter of human bones are in the feet.',
+      answer: true,
+    ),
+    Question(question: 'A slug\'s blood is green.', answer: true)
   ];
+  int qNum = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
               padding: EdgeInsets.all(10.0),
               child: Center(
                 child: Text(
-                  'This is where the question text will go.',
+                  questions[qNum].question,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 25.0,
@@ -73,7 +84,17 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 onPressed: () {
                   setState(() {
-                    score.add(Icon(Icons.check, color: Colors.green));
+                    if (questions[qNum].answer){
+                      score.add(Icon(Icons.check, color: Colors.green));
+                    }
+                    else{
+                      score.add(Icon(Icons.close, color: Colors.red));
+                    }                    if (qNum < (questions.length-1)) {
+                      print('questions = ${questions.length} , qNum =$qNum');
+                      qNum++;
+                    }else{
+                      qNum=0;
+                    }
                   });
                 },
               ),
@@ -93,7 +114,18 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 onPressed: () {
                   setState(() {
-                    score.add(Icon(Icons.close, color: Colors.red));
+                    if (!questions[qNum].answer){
+                      score.add(Icon(Icons.check, color: Colors.green));
+                    }
+                    else{
+                      score.add(Icon(Icons.close, color: Colors.red));
+                    }
+                    if (qNum < questions.length-1) {
+                      print('questions = ${questions.length} , qNum =$qNum');
+                      qNum++;
+                    }else{
+                      qNum=0;
+                    }
                   });
                 },
               ),
@@ -105,7 +137,6 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
-
 
 /*
 question1: 'You can lead a cow down stairs but not up stairs.', false,
